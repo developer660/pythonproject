@@ -1,0 +1,10 @@
+body{
+background-color:lightgray;
+}
+.card-text{
+height:350px;
+}
+
+.center-text {
+            text-align: center;
+        }
