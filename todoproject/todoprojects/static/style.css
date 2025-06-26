@@ -1,0 +1,37 @@
+.banner{
+    background-color:#3b5998;
+    height :200px;
+    width  :2000px;
+    margin-bottom :50px;
+    border :5px solid;
+    border-color: khaki;
+    margin-left: -14px;
+}
+
+.banner-text{
+color:white;
+ top: 37%;
+ left:47%;
+ position: absolute;
+ transform:transform;
+
+}
+body{
+    margin:0;
+    background-color:slateblue;
+    background-image: url('images.jpg')
+
+}
+
+.form-group{
+      background-color: white;
+
+}
+
+.form_style{
+    background-color: white;
+}
+
+.h4text{
+color: white;
+}
