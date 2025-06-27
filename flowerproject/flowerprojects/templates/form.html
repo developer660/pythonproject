@@ -1,0 +1,93 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <title>Product Order Form</title>
+<script>
+    var stateObject = {
+    "kerala": {
+    "Trivandrum": ["Nedumangad", "kavadiar", "thambanur"],
+    "Kollam": ["Chinnakada", "Pallimukku", "Kottarakara"],
+    "Alapuzha": ["kuttanad", "krishnapuram", "Edathua"]
+  },
+  "Other": {
+    "Tamilnadu": ["Chennai", "Coimbatore", "Madurai"],
+    "Karnataka": ["Banglore", "Mysore", "Kodagu"]
+  }
+}
+window.onload = function() {
+  var stateSel = document.getElementById("state");
+  var topicSel = document.getElementById("topic");
+  var chapterSel = document.getElementById("chapter");
+  for (var x in stateObject) {
+    stateSel.options[stateSel.options.length] = new Option(x, x);
+  }
+  stateSel.onchange = function() {
+    //empty Chapters- and Topics- dropdowns
+    chapterSel.length = 1;
+    topicSel.length = 1;
+    //display correct values
+    for (var y in stateObject[this.value]) {
+      topicSel.options[topicSel.options.length] = new Option(y, y);
+    }
+  }
+  topicSel.onchange = function() {
+    //empty Chapters dropdown
+    chapterSel.length = 1;
+    //display correct values
+    var z = stateObject[stateSel.value][this.value];
+    for (var i = 0; i < z.length; i++) {
+      chapterSel.options[chapterSel.options.length] = new Option(z[i], z[i]);
+    }
+  }
+}
+</script>
+    <style>
+    h2{
+        text-align:center;
+    }
+    body{
+       background-image:url('{% static 'img/p.jpg'%}');
+       background-repeat: no-repeat;
+       background-attachment: fixed;
+       background-size:cover;
+    }
+</style>
+</head>
+<div >
+<body>
+<h2>Enter Your shipping details</h2>
+<div style="text-align:center">
+    <form action="form" method="post">
+        {% csrf_token %}
+        <label>First Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <input type="text" name="firstname" placeholder="Enter your first name"><br>
+        <label>Last Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        <input type="text" name="lastname" placeholder="Enter your Last name"><br>
+        <label>Email ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+        &nbsp;<input type="email" name="email" placeholder="Enter your Email ID"><br>
+        <label>PhoneNumber:</label>
+       	<input type="text" name="phonenumber" placeholder="Enter your number"><br>
+        <label>BillingAddress:</label>
+		<input type="text" name="billingaddress" placeholder="Enter your address"><br>
+        <label>Your Address:&nbsp;&nbsp;</label>
+		<input type="text" name="youraddress" placeholder="Enter your Address"><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;State: <select name="state" id="state">
+        <option value="" selected="selected">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please Select state</option>
+        </select><br>
+        &nbsp;&nbsp;&nbsp;&nbsp; District: <select name="topic" id="topic">
+        <option value="" selected="selected">Please select district</option>
+        </select><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Sub district: <select name="chapter" id="chapter">
+        <option value="" selected="selected">Please select sub district</option>
+        </select><br>
+        <br><br>
+        <input type="submit" value="Payment">
+    </form>
+<p class="text-center"><b>&copy;Pink Blossoms Private limited.All rights reserved</b></p>
+</div>
+</body>
+</div>
+</html>

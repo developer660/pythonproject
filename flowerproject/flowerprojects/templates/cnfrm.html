@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Conformation</title>
+   <style>
+    body{
+       background-image:url('{% static 'img/cnfr.jpg'%}');
+       background-repeat: no-repeat;
+       background-attachment: fixed;
+       background-size:cover;
+    }
+</style>
+</head>
+<body>
+<h1> Thankyou For Response</h1>
+<h2>Your order is confirmed</h2>
+<p>You can track your order by order ID 1342454dsrecres</p>
+<form action="cnfrm" method="post">
+    {% csrf_token %}
+    <input  type="radio" name="track" value="Ordered">
+    <label><b>Ordered</b></label><br>
+    <input  type="radio" name="track" value="Shipped">
+    <label><b>Shipped</b></label><br>
+    <input type="radio" name="track" value="Out Of Delivary">
+    <label><b>Out Of Delivary </b></label><br>
+    <input type="radio" name="track" value="Delivered">
+    <label><b>Delivered</b></label><br>
+</body>
+</html>

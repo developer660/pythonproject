@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {% if Category %}
+        {{Category.desc|truncatewords:155 }}
+    {% else %}
+        Welcome to Universal shop...
+    {% endif %}
+{% endblock %}
+{% block title %}
+    {% if Category %}
+        {{Category.name }}- Pink Blossoms
+    {% else %}
+        Your shopping starts here...
+    {% endif %}
+{% endblock %}
+
+
+{% block content %}
+    {% if Category %}
+        <div>
+            <div class="row row_class">
+                <div class="mx_auto">
+                <p><a href="{% url  'flowerapp:allproduct' %}">Here is our collection</a> </p>
+            </div>
+                </div>
+        </div>
+    {% endif %}
+<div class="mx_auto">
+    {% if Category %}
+        <img src="{{Category.img.url}}" alt="{{Category.name}}" width="1115px" height="500px">
+</div>
+    <br>
+<div>
+        <h1 class="text_center my_title">{{Category.name }}</h1>
+        <p class="text-justify">{{Category.desc}}</p>
+</div>
+    {% else %}
+        <div>
+             <img class="my_image my_image_padding" src="{% static 'img/banner.jpg' %}" alt="products" >
+        </div>
+            <br>
+                <div>
+                    <h1 class="text-center my_title">Our product collections</h1>
+                        <p class="text-justify">Convert more customers with the world’s best ecommerce platform. Order Management. Seamless Integration. Increase Sales Output. Highlights: Demo Available, Chat Option Available, Call Back Option Available.
+                        </p>
+                </div>
+    {% endif %}
+<div class="container">
+    <div class="row ">
+        {% for Product in Products.object_list %}
+
+        <div class="my_bottom_margin col-9 col-sm-12 col-md-4 xol-lg-8">
+            <div class="card text-center" style="min-width:18rem;">
+                <a href="{{Product.get_url}}"><img src="{{Product.img.url}}" alt="{{Product.name}}" width="350px" height="300px"></a>
+            <div class="card-body">
+                <h4>{{Product.name}}</h4>
+                <p>{{Product.price}}
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="mx-auto">
+        {% if Products.paginator.num_pages > 1 %}
+
+        <hr>
+        <div class="text-center">
+            {% for pg in Products.paginator.page_range %}
+                <a href="?page={{pg}}"  class="btn btn-light btn-sm {% if Products.number == pg %} active {% endif %}">{{pg}}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+    <br>
+</div>
+
+{% endblock %}

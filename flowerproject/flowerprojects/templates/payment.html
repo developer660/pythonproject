@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Page</title>
+     <style>
+
+    body{
+       background-image:url('{% static 'img/pay.jpg'%}');
+       background-repeat: no-repeat;
+       background-attachment: fixed;
+       background-size:cover;
+    }
+
+div {
+    border: 1px solid black;
+}
+</style>
+</head>
+<body>
+<h1>Suggested for you</h1>
+<div>
+<form action="cnfrm" method="post">
+    {% csrf_token %}
+    <fieldset>
+
+    <input  type="radio" name="pay" value="Google Pay">
+        <label><b>Google Pay</b></label><br>
+    <input  type="radio" name="pay" value="Cash on delivary">
+    <label><b>Cash on delivary</b></label><br>
+    <input type="radio" name="pay" value="UPI">
+    <label><b>UPI</b></label><br>
+    <input type="radio" name="pay" value="Wallets">
+    <label><b>Wallets</b></label><br>
+    <input type="radio" name="pay" value="Credit/Debit/ATM Card">
+    <label><b>Credit/Debit/ATM Card</b></label><br>
+    <input type="radio" name="pay" value="Net banking">
+    <label><b>Net banking</b></label><br><br>
+    <input type="submit">
+
+</form>
+</div>
+</body>
+</html>

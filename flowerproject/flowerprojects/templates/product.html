@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {{Product.desc|truncatewords:155 }}
+{% endblock %}
+
+{% block title %}
+    {% if Category %}
+        {{Product.name }}- Pink Blossoms
+    {% endif %}
+{% endblock %}
+{% block content %}
+<div class="row my_prod_row_class">
+    <div class="mx_auto">
+        <p> <a href="{% url 'flowerapp:allproduct' %}">Home</a>| <a href="{{Product.Category.get_url}}">{{Product.Category}}</a>|{{Product.name}}
+        </p>
+
+    </div>
+</div>
+<div class="container">
+<br>
+
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+        <div style="min-width:18rem">
+            <img src="{{Product.img.url}}" alt="{{Product.name}}" height="270px" width="300px">
+        </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+        <div>
+            <h1 class="my_pro_title"> {{Product.name}}</h1>
+             <p>${{Product.price}}</p>
+             <p class="my_title"> Product Description</p>
+             <p class="text-justify my_prod_text">{{Product.desc}}</p>
+            {% if Product.stock <= 0 %}
+                 <p class="text-justify prod_text"><b> Out Of Stock</b></p>
+             {% else %}
+                 <a class="btn btn-secondary" href="{% url 'cartapp:add_cart' Product.id %}">Add to Cart</a>
+            {% endif %}
+
+        </div>
+
+
+    </div>
+</div>
+</div>
+{% endblock %}

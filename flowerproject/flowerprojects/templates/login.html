@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+<link rel="stylesheet" href="{% static 'style1.css' %}" type="text/css">
+    <style>
+        .log{
+            text-align:center;
+            }
+        body{
+            background-image:url('{% static 'img/login.jpg'%}');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size:cover;
+            }
+    </style>
+</head>
+<h1 style="text-align:center">WELCOME</h1>
+<body>
+<div class="log">
+    <form action="loggin" method="POST">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Enter your Username"><br>
+        <input type="password" name="password" placeholder="Enter your password"><br>
+        <input type="submit">
+    </form>
+</div>
+<h4 style="text-align:center"><a href="{% url  'details:registration' %}"style="text-align:center">Register </a> &nbsp;&nbsp forgot password</h4>
+
+</body>
+</html>

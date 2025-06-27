@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+  Welcome to the cart
+{% endblock %}
+{% block title %}
+    Cart-Pink Blossoms
+{% endblock %}
+{% block content %}
+{% if not cart_items %}
+<div>
+    <div class="text-center">
+        <br>
+        <h1 class="text-center my_title">
+            Your shopping cart is empty
+        </h1>
+        <br>
+        <p class="text-center">
+            start shopping <a href="{% url 'flowerapp:allproduct' %}">click here</a>
+        </p>
+
+    </div>
+</div>
+
+{% else %}
+<div>
+    <div class="text-center">
+        <br>
+        <h1 class="text-center my_title">
+            Your Shopping Cart
+        </h1>
+        <br>
+    </div>
+</div>
+<div class="row mx-auto">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 text_center">
+       <table class="table my_table">
+           <thead class="my_tablehead">
+           <tr>
+               <th colspan="5">
+                    Your Items
+               </th>
+           </tr>
+           </thead>
+           <tbody>
+           {% for cart_item in cart_items %}
+           <tr>
+               <td>
+                 <img src="{{cart_item.Product.img.url}}" alt="" style="width:100px;height:100px;" class="float-left rounded custom_image" width="300px" height="250px" ></a>
+
+               </td>
+               <td class="text-left">
+                   {{cart_item.Product.name}}
+                   <br>
+                   SKU: {{cart_item.Product.id}}
+                   <br>
+                   Price: ${{cart_item.Product.price}}
+                   <br>
+                   Qty: {{cart_item.quantity}} * ${{cart_item}}
+                   <br>
+                   <br>
+                   <p><b> Total=$ {{cart_item.sub_total}}</b></p>
+
+               </td>
+
+
+               {% if cart_item.quantity < cart_item.Product.stock %}
+               <td>
+                   &nbsp;<a href ="{% url 'cartapp:add_cart' cart_item.Product.id %}" class="my_page"> <i class="fa fa-plus custom_icon"></i></a>
+                   &nbsp;<a href="{% url 'cartapp:cart_remove' cart_item.Product.id %}" class="my_page"><i class="fa fa-minus custom_icon"></i></a>
+                   &nbsp;<a href="{% url 'cartapp:cart_delete' cart_item.Product.id %}" class="my_page"><i class="fa fa-trash custom_icon"></i></a>
+               </td>
+               {% else %}
+               <td>
+                   &nbsp;&nbsp;<a href="{% url 'cartapp:cart_remove' cart_item.Product.id %}" class="my_page"><i class="fa-solid fa-minus custom_icon"></i></a>
+                   &nbsp;&nbsp;<a href="{% url 'cartapp:cart_delete' cart_item.Product.id %}" class="my_page"><i class="fa-solid fa-trash-can custom_icon"></i></a>
+               </td>
+               {% endif %}
+           </tr>
+           {% endfor %}
+           </tbody>
+       </table>
+    </div>
+
+<div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+    <table class="table my_table">
+        <tr>
+            <th>
+                Checkout
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                Please confirm your order before payment.
+            </td>
+        </tr>
+        <tr>
+            <td class="text-left">
+                Your Grand Total is :&nbsp; <strong>{{total}}</strong>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+<div class="mx-auto" >
+    <a href="{% url 'details:loggin' %}" class="btn btn-secondary btn-block my_button">Continue here</a>&nbsp;
+<!--    &nbsp;<button style="background-color:#2e6c0e;border-color:black;height:38px;width:140px;padding: 0.375rem 0.75rem;font-size:1rem;border-radius:0.25rem;color:white;margin-top:5px;line-height: 1.5;cursor: pointer;border: 1px solid transparent;"> <a href="{% url 'flowerapp:allproduct' %}"> Payment</a></button>-->
+
+</div>
+
+
+
+</div>
+</div>
+
+{% endif %}
+{% endblock %}
